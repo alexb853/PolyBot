@@ -13,7 +13,7 @@ pipeline {
 
                         # docker login -u alexb853 -p 
                         docker build -t dockerbot .
-                        # docker tag ..
+                        docker tag dockerbot:latest dockerbot:v1.0
                         # docker push ...
                     '''
 
