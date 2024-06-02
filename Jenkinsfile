@@ -9,7 +9,6 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
-                # withCredentials([usernamePassword(credentialsId: 'mydockerlogin', variable: 'USERPASS')]) {
                     sh '''
 
                         # docker login -u alexb853 -p 
