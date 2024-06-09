@@ -21,5 +21,12 @@ pipeline {
 
             }
         }
+        stage('Trigger Deploy') {
+           steps {
+               build job: 'BotDeploy', wait: false, parameters: [
+               string(name: 'MAGE_URL', value: "alexb853/$IMG_NAME")
+               ]
+           }
+        }
     }
 }
