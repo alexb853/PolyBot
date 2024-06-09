@@ -8,18 +8,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo "Hello World!"'
+            withCredentials(
+               [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]
+            ) {
                 sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
-                    sh '''
-
-                        # docker login -u alexb853 -p 
-                        docker build -t $IMG_NAME .
-                        docker tag $IMG_NAME alexb853/$IMG_NAME
-                        docker push alexb853/$IMG_NAME
+                      docker login -u $DOCKER_USERNAME -p DOCKER_PASS
+                      docker build -t $IMG_NAME .
+                      docker tag $IMG_NAME alexb853/$IMG_NAME
+                      docker push alexb853/$IMG_NAME
                     '''
+            }
 
             }
         }
