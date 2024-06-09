@@ -1,6 +1,10 @@
 
 pipeline {
     agent any
+
+    environment{
+       IMG_NAME = dockerbot:${BUILD_NUMBER}
+    }
     stages {
         stage('Build') {
             steps {
@@ -12,9 +16,9 @@ pipeline {
                     sh '''
 
                         # docker login -u alexb853 -p 
-                        docker build -t dockerbot:${BUILD_NUMBER} .
-                        docker tag dockerbot:latest dockerbot:v1.0
-                        docker push alexb853/dockerbot:${BUILD_NUMBER}
+                        docker build -t $IMG_NAME .
+                        docker tag $IMG_NAME alexb853/$IMG_NAME
+                        docker push alexb853/$IMG_NAME
                     '''
 
             }
