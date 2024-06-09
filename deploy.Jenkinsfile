@@ -1,6 +1,12 @@
 
 pipeline {
     agent any
+    parameters {
+         string(name: 'IMAGE_URL', defaultValue: '', description: '')
+    }
+
+    stages ...
+}
     stages {
         stage('Deploy') {
             steps {
