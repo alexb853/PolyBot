@@ -2,8 +2,8 @@
 pipeline {
     agent any
 
-    environment{
-       IMG_NAME = dockerbot:${BUILD_NUMBER}
+    environment {
+        IMG_NAME = "dockerbot:${BUILD_NUMBER}"
     }
     stages {
         stage('Build') {
