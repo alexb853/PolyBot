@@ -12,9 +12,9 @@ pipeline {
                     sh '''
 
                         # docker login -u alexb853 -p 
-                        docker build -t polybot:${BUILD_NUMBER} .
-                        docker tag polybot:latest dockerbot:v1.0
-                        docker push alexb853/polybot:${BUILD_NUMBER}
+                        docker build -t dockerbot:${BUILD_NUMBER} .
+                        docker tag dockerbot:latest dockerbot:v1.0
+                        docker push alexb853/dockerbot:${BUILD_NUMBER}
                     '''
 
             }
