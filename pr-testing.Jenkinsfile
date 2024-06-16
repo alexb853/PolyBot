@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Unittest') {
             steps {
-            sh 'echo "error"'
+            sh 'echo "erro"'
             }
         }
         stage('Lint') {
