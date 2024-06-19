@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -6,6 +5,7 @@ pipeline {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
         NGINX_IMG = "nginx:alpine"
     }
+
     stages {
         stage('pull nginx img') {
             steps {
