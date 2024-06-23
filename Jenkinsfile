@@ -1,6 +1,12 @@
 
 pipeline {
     agent any
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(daysToKeepStr: '30'))
+        timestamps()
+    }
      
     environment {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
