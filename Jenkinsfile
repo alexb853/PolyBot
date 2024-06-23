@@ -68,8 +68,12 @@ pipeline {
                ]
            }
         }
-    }
 
+        stage('Sleep') {
+          echo 'Sleeping for 20 seconds...' 
+          sleep 20 
+        }
+    }
 
     post {
           always { 
