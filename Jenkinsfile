@@ -1,13 +1,7 @@
 
 pipeline {
-    agent {
-            docker {
-                     image 'alexb853/jenkins-agent:latest'
-                     args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-            }
-    }
-
-
+    agent any
+     
     environment {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
         NGINX_IMG = "nginx:alpine"
