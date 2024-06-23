@@ -1,6 +1,12 @@
 
 pipeline {
-    agent any
+    agent {
+            docker {
+                     image 'alexb853/jenkins-agent:latest'
+                     args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            }
+    }
+
 
     environment {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
@@ -62,5 +68,12 @@ pipeline {
                ]
            }
         }
+    }
+
+
+    post {
+          always { 
+            cleanWs()
+          } 
     }
 }
