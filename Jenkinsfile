@@ -70,8 +70,10 @@ pipeline {
         }
 
         stage('Sleep') {
-          echo 'Sleeping for 20 seconds...' 
-          sleep 20 
+          steps {
+             echo 'Sleeping for 20 seconds...' 
+             sleep 20
+          } 
         }
     }
 
