@@ -1,0 +1,16 @@
+{ 
+  "ignore": {
+    "SNYK-ID-TO-IGNORE-1": [ 
+      {
+        "reason": "Reason for ignoring this vulnerability",
+        "expires": "2024-12-31T00:00:00.000Z" 
+      } 
+    ], 
+    "SNYK-ID-TO-IGNORE-2": [
+      { 
+        "reason": "Reason for ignoring this vulnerability",
+        "expires": "2024-12-31T00:00:00.000Z" 
+      }  
+    ] 
+  } 
+}

@@ -1,0 +1,9 @@
+Error: 
+Testing /home/alex_ben_shalom/PolyBot...
+
+Failed to test pip project
+    at test (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/commands/test/index.ts:294:19)
+    at runCommand (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:56:25)
+    at main (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:343:11)
+    at /snapshot/snyk/dist/cli/webpack:/snyk/src/cli/index.ts:13:3
+    at callHandlingUnexpectedErrors (/snapshot/snyk/dist/cli/webpack:/snyk/src/lib/unexpected-error.ts:28:5)

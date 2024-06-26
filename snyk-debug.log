@@ -1,0 +1,151 @@
+Executing: /usr/local/lib/node_modules/snyk/wrapper_dist/snyk-linux test --debug
+2024-06-26T17:26:54Z main - Version:               1.1292.0
+2024-06-26T17:26:54Z main - Platform:              linux amd64
+2024-06-26T17:26:54Z main - API:                   https://api.snyk.io
+2024-06-26T17:26:54Z main - Cache:                 /home/alex_ben_shalom/.cache/snyk/snyk-cli
+2024-06-26T17:26:54Z main - Organization:          7e35e2b4-2926-4353-ab5d-f75a48e3b18d
+2024-06-26T17:26:54Z main - Insecure HTTPS:        false
+2024-06-26T17:26:54Z main - Analytics:             enabled
+2024-06-26T17:26:54Z main - Authorization:         b2846fb57de0b2f0e074119f17486f93[...]  (type=token)
+2024-06-26T17:26:54Z main - Interaction:           c16412f8-7a66-4f99-929b-efd1ba90a297
+2024-06-26T17:26:54Z main - Features:              
+2024-06-26T17:26:54Z main -   preview:             disabled
+2024-06-26T17:26:54Z main -   fips:                Not available
+2024-06-26T17:26:54Z main - Using Legacy CLI to serve the command. (reason: unknown command "test" for "snyk")
+2024-06-26T17:26:54Z legacycli:1 - Arguments:[test --debug]
+2024-06-26T17:26:54Z legacycli:1 - Use StdIO:true
+2024-06-26T17:26:54Z legacycli:1 - Working directory:
+2024-06-26T17:26:54Z legacycli:1 - Init start
+2024-06-26T17:26:54Z legacycli:1 - Init-Lock acquired: true (/home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0.lock)
+2024-06-26T17:26:54Z legacycli:1 - Validating sha256 of /home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0/snyk-linux
+2024-06-26T17:26:54Z legacycli:1 - expected:  315dcd9e6730d2a26f36e8fa2a735a2122fc12a5a3e7a64c6bd48cbb5c74d4e8
+2024-06-26T17:26:54Z legacycli:1 - actual:    315dcd9e6730d2a26f36e8fa2a735a2122fc12a5a3e7a64c6bd48cbb5c74d4e8
+2024-06-26T17:26:54Z legacycli:1 - Extraction not required
+2024-06-26T17:26:54Z legacycli:1 - Init end
+2024-06-26T17:26:54Z legacycli:1 - Temporary CertificateLocation: /home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0/tmp/pid67785/snyk-cli-cert-2641472983.crt
+2024-06-26T17:26:54Z legacycli:1 - Enabled Proxy Authentication Mechanism: Anyauth
+2024-06-26T17:26:54Z legacycli:1 - starting proxy
+2024-06-26T17:26:54Z legacycli:1 - Wrapper proxy is listening on port: 36499
+2024-06-26T17:26:54Z legacycli:1 - Launching:
+2024-06-26T17:26:54Z legacycli:1 - /home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0/snyk-linux
+2024-06-26T17:26:54Z legacycli:1 - With Arguments:
+2024-06-26T17:26:54Z legacycli:1 - test, --debug
+2024-06-26T17:26:54Z legacycli:1 - With Environment:
+2024-06-26T17:26:54Z legacycli:1 - NODE_EXTRA_CA_CERTS = /home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0/tmp/pid67785/snyk-cli-cert-2641472983.crt
+2024-06-26T17:26:54Z legacycli:1 - HTTPS_PROXY = http://***@127.0.0.1:36499
+2024-06-26T17:26:54Z legacycli:1 - HTTP_PROXY = http://***@127.0.0.1:36499
+2024-06-26T17:26:54Z legacycli:1 - NO_PROXY = localhost,127.0.0.1,::1
+2024-06-26T17:26:54Z legacycli:1 - SNYK_SYSTEM_HTTPS_PROXY =
+2024-06-26T17:26:54Z legacycli:1 - SNYK_SYSTEM_HTTP_PROXY =
+2024-06-26T17:26:54Z legacycli:1 - SNYK_SYSTEM_NO_PROXY =
+2024-06-26T17:26:54.781Z snyk test <ref *1> { _: [ [Circular *1] ], debug: true }
+2024-06-26T17:26:55.365Z snyk using proxy: http://***@127.0.0.1:36499
+2024-06-26T17:26:55Z legacycli:1 - [001] INFO: Running 1 CONNECT handlers
+2024-06-26T17:26:55Z legacycli:1 - HandleConnect - basic authentication result: &{0 <nil> 0xb33340}api.snyk.io:443
+2024-06-26T17:26:55Z legacycli:1 - [001] INFO: on 0th handler: &{2 <nil> 0xb32f40} api.snyk.io:443
+2024-06-26T17:26:55Z legacycli:1 - [001] INFO: Assuming CONNECT is TLS, mitm proxying it
+2024-06-26T17:26:55Z legacycli:1 - [001] INFO: signing for api.snyk.io
+2024-06-26T17:26:55Z legacycli:1 - [002] INFO: req api.snyk.io:443
+2024-06-26T17:26:55Z legacycli:1 - [002] INFO: Sending request GET https://api.snyk.io:443/v1/cli-config/feature-flags/enablePnpmCli?org=
+2024-06-26T17:26:55Z legacycli:1 - [002] INFO: resp 403 Forbidden
+2024-06-26T17:26:55Z legacycli:1 - [001] INFO: Exiting on EOF
+2024-06-26T17:26:55.807Z snyk:run-test Error running test { error: '/bin/sh: 1: python: not found\n' }
+2024-06-26T17:26:55.809Z snyk-test Failed to test 1 projects, errors:
+2024-06-26T17:26:56.281Z snyk-test error: FailedToRunTestError: Failed to test pip project
+    at runTest (/snapshot/snyk/dist/cli/webpack:/snyk/src/lib/snyk-test/run-test.ts:379:11)
+    at test (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/commands/test/index.ts:156:13)
+    at runCommand (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:56:25)
+    at main (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:343:11)
+    at /snapshot/snyk/dist/cli/webpack:/snyk/src/cli/index.ts:13:3
+    at callHandlingUnexpectedErrors (/snapshot/snyk/dist/cli/webpack:/snyk/src/lib/unexpected-error.ts:28:5)
+Error: 
+Testing /home/alex_ben_shalom/PolyBot...
+
+Failed to test pip project
+    at test (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/commands/test/index.ts:294:19)
+    at runCommand (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:56:25)
+    at main (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:343:11)
+    at /snapshot/snyk/dist/cli/webpack:/snyk/src/cli/index.ts:13:3
+    at callHandlingUnexpectedErrors (/snapshot/snyk/dist/cli/webpack:/snyk/src/lib/unexpected-error.ts:28:5)
+2024-06-26T17:26:56.285Z snyk Exit code: 2
+2024-06-26T17:26:56.285Z snyk analytics {
+  "args": [
+    {
+      "debug": true
+    }
+  ],
+  "command": "bad-command",
+  "metadata": {
+    "upgradable-snyk-protect-paths": 0,
+    "local": true,
+    "error-message": "\nTesting /home/alex_ben_shalom/PolyBot...\n\nFailed to test pip project",
+    "error": "Error: \nTesting /home/alex_ben_shalom/PolyBot...\n\nFailed to test pip project\n    at test (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/commands/test/index.ts:294:19)\n    at runCommand (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:56:25)\n    at main (/snapshot/snyk/dist/cli/webpack:/snyk/src/cli/main.ts:343:11)\n    at /snapshot/snyk/dist/cli/webpack:/snyk/src/cli/index.ts:13:3\n    at callHandlingUnexpectedErrors (/snapshot/snyk/dist/cli/webpack:/snyk/src/lib/unexpected-error.ts:28:5)",
+    "error-code": 500,
+    "command": "test"
+  },
+  "os": "Linux 5.15",
+  "osPlatform": "linux",
+  "osRelease": "5.15.153.1-microsoft-standard-WSL2",
+  "osArch": "x64",
+  "version": "1.1292.0",
+  "nodeVersion": "v18.5.0",
+  "standalone": true,
+  "integrationName": "CLI_V1_PLUGIN",
+  "integrationVersion": "1.1292.0",
+  "integrationEnvironment": "",
+  "integrationEnvironmentVersion": "",
+  "id": "e8935f8230d6ca3917289e9df3b744ced94c43af",
+  "ci": false,
+  "durationMs": 1504,
+  "metrics": {
+    "network_time": {
+      "type": "timer",
+      "values": [
+        393
+      ],
+      "total": 393
+    },
+    "cpu_time": {
+      "type": "synthetic",
+      "values": [
+        1111
+      ],
+      "total": 1111
+    }
+  }
+}
+2024-06-26T17:26:56.286Z snyk sending request to: https://api.snyk.io/v1/analytics/cli
+2024-06-26T17:26:56.286Z snyk request body size: 1263
+2024-06-26T17:26:56.286Z snyk gzipped request body size: 610
+2024-06-26T17:26:56.287Z snyk using proxy: http://***@127.0.0.1:36499
+2024-06-26T17:26:56Z legacycli:1 - [003] INFO: Running 1 CONNECT handlers
+2024-06-26T17:26:56Z legacycli:1 - HandleConnect - basic authentication result: &{0 <nil> 0xb33340}api.snyk.io:443
+2024-06-26T17:26:56Z legacycli:1 - [003] INFO: on 0th handler: &{2 <nil> 0xb32f40} api.snyk.io:443
+2024-06-26T17:26:56Z legacycli:1 - [003] INFO: Assuming CONNECT is TLS, mitm proxying it
+2024-06-26T17:26:56Z legacycli:1 - [003] INFO: signing for api.snyk.io
+2024-06-26T17:26:56Z legacycli:1 - [004] INFO: req api.snyk.io:443
+2024-06-26T17:26:56Z legacycli:1 - [004] INFO: Sending request POST https://api.snyk.io:443/v1/analytics/cli
+2024-06-26T17:26:56Z legacycli:1 - [004] INFO: resp 200 OK
+2024-06-26T17:26:56Z legacycli:1 - [003] INFO: Exiting on EOF
+2024-06-26T17:26:56Z main - Exiting with 2
+2024-06-26T17:26:56Z legacycli:1 - Proxy successfully shut down
+2024-06-26T17:26:56Z legacycli:1 - deleting temp cert file:/home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0/tmp/pid67785/snyk-cli-cert-2641472983.crt
+2024-06-26T17:26:56Z legacycli:1 - deleted temp cert file:/home/alex_ben_shalom/.cache/snyk/snyk-cli/1.1292.0/tmp/pid67785/snyk-cli-cert-2641472983.crt
+2024-06-26T17:26:56Z main - Sending Instrumentation
+2024-06-26T17:26:56Z analytics.report:2 - analytics.report workflow start
+2024-06-26T17:26:56Z analytics.report:2 - adding command line input
+2024-06-26T17:26:56Z analytics.report:2 - [0] Processing element
+2024-06-26T17:26:56Z analytics.report:2 - [0] Schema Version: 2
+2024-06-26T17:26:56Z analytics.report:2 - [0] Data: {"data":{"attributes":{"interaction":{"categories":["oss","test","debug"],"errors":[],"extension":{"exitcode":2},"id":"urn:snyk:interaction:c16412f8-7a66-4f99-929b-efd1ba90a297","results":[],"stage":"dev","status":"failure","target":{"id":"pkg:git/github.com/alexb853/PolyBot@06138eaba9a1d1ef5200b2122f13b34b4b0a12cf?branch=main"},"timestamp_ms":1719422813632,"type":""},"runtime":{"application":{"name":"snyk-cli","version":"1.1292.0"},"performance":{"duration_ms":2997},"platform":{"arch":"amd64","os":"linux"}}},"type":""}}
+2024-06-26T17:26:57Z analytics.report:2 - analytics.report workflow end
+2024-06-26T17:26:57Z main - Instrumentation successfully sent
+2024-06-26T17:26:57Z main - Sending Analytics
+2024-06-26T17:26:57Z main - Analytics successfully send
+{
+  status: 2,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 67785,
+  stdout: null,
+  stderr: null
+}

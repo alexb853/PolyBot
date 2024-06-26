@@ -1,32 +1,19 @@
 
 pipeline {
-   agent {
-       docker {
-            image 'alexb853/jenkins-agent:latest'
-            args '-v /tmp:/tmp'
-       }
-   }
-
-    options {
-        disableConcurrentBuilds()
-        buildDiscarder(logRotator(daysToKeepStr: '30'))
-        timestamps()
+    agent {
+            docker {
+                     image 'alexb853/jenkins-agent:latest'
+                     args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            }
     }
-     
+
+
     environment {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
         NGINX_IMG = "nginx:alpine"
-        SNYK_IGNORE_FILE = 'snyk-ignore.json' 
     }
 
     stages {
-
-        stage('Install Snyk CLI') {
-            steps {
-                   sh 'npm install -g snyk'
-            }
-        }
-
         stage('pull nginx img') {
             steps {
                    script { 
@@ -46,28 +33,6 @@ pipeline {
                    }
              }
         }
-
-        stage('Snyk Scan') { 
-            steps { 
-               script {
-                   withCredentials(
-                            [string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]
-                   ) {
-
-                   sh "snyk auth ${SNYK_TOKEN}" 
-                    
-                   // Ensure the ignore file exists 
-                   if (!fileExists(${SNYK_IGNORE_FILE})) { 
-                     error "Snyk ignore file not found: ${SNYK_IGNORE_FILE}" 
-                   }
-
-                 // Perform the Snyk scan using the ignore file 
-                 //sh "snyk test --ignore-policy=${snykIgnoreFile}" 
-                 sh "snyk container test ${$POLYBOT_IMG_NAME} --file=${env.SNYK_IGNORE_FILE}"
-                   }            
-                }
-             } 
-          }
 
         stage('Push NGINX Image') {
              steps { 
@@ -103,13 +68,8 @@ pipeline {
                ]
            }
         }
-
-        stage('Sleep') {
-          steps { 
-             sleep 20
-          } 
-        }
     }
+
 
     post {
           always { 
