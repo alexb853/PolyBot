@@ -13,6 +13,8 @@ pipeline {
         NGINX_IMG = "nginx:alpine" 
     }
 
+    stages {
+
         stage('pull nginx img') {
             steps {
                    script { 
