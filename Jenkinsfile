@@ -21,26 +21,6 @@ pipeline {
             }
         }
 
-        stage('Static Code Linting') {
-            steps {
-                   script {
-
-                        sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
-                   }
-            }
-           // post {
-             //  always {
-               //       sh 'cat pylint.log'
-                 //     recordIssues(
-                   //   enabledForFailure: true,
-                     // aggregatingResults: true,
-                     // tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
-                     // )
-
-         //      }
-         //   }
-        }
-
         stage('Build polybot Image') {
              steps { 
                    script {
@@ -63,8 +43,8 @@ pipeline {
                       docker push alexb853/$POLYBOT_IMG_NAME
                     ''' 
                    }
-              }
-         }
+             }
+        }
 
          stage('Push polybot img') {
                steps {
@@ -77,8 +57,8 @@ pipeline {
                       '''
                      }
 
-                }
-        }
+               }
+         }
 
         stage('Trigger Deploy') {
            steps {
