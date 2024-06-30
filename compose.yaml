@@ -1,4 +1,3 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
@@ -10,6 +9,16 @@ services:
     networks:
       - my_network
 
+  jenkins:
+    build:
+      context: ./jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
   web:
     build:
       context: ./web
@@ -20,3 +29,7 @@ services:
 
 networks:
   my_network:
+
+volumes:
+  jenkins_home:
+
