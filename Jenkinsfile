@@ -23,7 +23,10 @@ pipeline {
 
         stage('Static Code Linting') {
             steps {
-                    sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
+                   script {
+
+                        sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
+                   }
             }
            // post {
              //  always {
