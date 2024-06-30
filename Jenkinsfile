@@ -1,11 +1,6 @@
 
 pipeline {
-   agent {
-       docker {
-            image 'alexb853/jenkins-agent:latest'
-            args '-v /tmp:/tmp'
-       }
-   }
+   agent any
 
     options {
         disableConcurrentBuilds()
