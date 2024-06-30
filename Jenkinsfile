@@ -10,17 +10,8 @@ pipeline {
      
     environment {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
-        NGINX_IMG = "nginx:alpine"
-        SNYK_IGNORE_FILE = 'snyk-ignore.json' 
+        NGINX_IMG = "nginx:alpine" 
     }
-
-    stages {
-
-        stage('Install Snyk CLI') {
-            steps {
-                   sh 'npm install -g snyk'
-            }
-        }
 
         stage('pull nginx img') {
             steps {
@@ -29,6 +20,23 @@ pipeline {
                    }
             }
         }
+
+        stage('Static Code Linting') {
+                    steps {
+                        sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
+                    }
+                    post {
+                        always {
+                            sh 'cat pylint.log'
+                            recordIssues(
+                                enabledForFailure: true,
+                                aggregatingResults: true,
+                                tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
+                            )
+
+                         }
+                    }
+         }
 
         stage('Build polybot Image') {
              steps { 
@@ -41,28 +49,6 @@ pipeline {
                    }
              }
         }
-
-        stage('Snyk Scan') { 
-            steps { 
-               script {
-                   withCredentials(
-                            [string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]
-                   ) {
-
-                   sh "snyk auth ${SNYK_TOKEN}" 
-                    
-                   // Ensure the ignore file exists 
-                   if (!fileExists(${SNYK_IGNORE_FILE})) { 
-                     error "Snyk ignore file not found: ${SNYK_IGNORE_FILE}" 
-                   }
-
-                 // Perform the Snyk scan using the ignore file 
-                 //sh "snyk test --ignore-policy=${snykIgnoreFile}" 
-                 sh "snyk container test ${$POLYBOT_IMG_NAME} --file=${env.SNYK_IGNORE_FILE}"
-                   }            
-                }
-             } 
-          }
 
         stage('Push NGINX Image') {
              steps { 
