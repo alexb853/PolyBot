@@ -17,7 +17,7 @@ pipeline {
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
         BUILD_DATE = new Date().format('yyyyMMdd-HHmmss')
         IMAGE_TAG = "v1.0.0-${BUILD_NUMBER}-${BUILD_DATE}"
-        SNYK_TOKEN = credentials('snyk-token')
+        SNYK_TOKEN = credentials('snykAPI')
     }
 
     stages {
