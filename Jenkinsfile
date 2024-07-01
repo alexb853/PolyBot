@@ -13,6 +13,8 @@ pipeline {
         NGINX_IMG = "nginx:alpine" 
     }
 
+    stages {
+
         stage('pull nginx img') {
             steps {
                    script { 
@@ -22,20 +24,20 @@ pipeline {
         }
 
         stage('Static Code Linting') {
-            steps {
-                    sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
-            }
-           // post {
-             //  always {
-               //       sh 'cat pylint.log'
-                 //     recordIssues(
-                   //   enabledForFailure: true,
-                     // aggregatingResults: true,
-                     // tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
-                     // )
+             steps {
+                     sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
+             }
+             /* post {
+                always {
+                     sh 'cat pylint.log'
+                     recordIssues(
+                          enabledForFailure: true,
+                          aggregatingResults: true,
+                          tools: [pyLint(name: 'Pylint', pattern: '**//* pylint.log')]
+                     )
 
-         //      }
-         //   }
+                }
+             } */
         }
 
         stage('Build polybot Image') {
@@ -60,8 +62,8 @@ pipeline {
                       docker push alexb853/$POLYBOT_IMG_NAME
                     ''' 
                    }
-              }
-         }
+             }
+        }
 
          stage('Push polybot img') {
                steps {
@@ -74,8 +76,8 @@ pipeline {
                       '''
                      }
 
-                }
-        }
+               }
+         }
 
         stage('Trigger Deploy') {
            steps {
