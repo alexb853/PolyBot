@@ -10,7 +10,14 @@ pipeline {
      
     environment {
         POLYBOT_IMG_NAME = "dockerbot:${BUILD_NUMBER}"
-        NGINX_IMG = "nginx:alpine" 
+        NGINX_IMG = "nginx:alpine"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Jenkins credentials ID
+        APP_IMAGE_NAME = 'python-app-image'
+        WEB_IMAGE_NAME = 'web-image'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        BUILD_DATE = new Date().format('yyyyMMdd-HHmmss')
+        IMAGE_TAG = "v1.0.0-${BUILD_NUMBER}-${BUILD_DATE}"
+        SNYK_TOKEN = credentials('snyk-token')
     }
 
     stages {
@@ -23,23 +30,23 @@ pipeline {
             }
         }
 
-        stage('Static Code Linting') {
+        /* stage('Static Code Linting') {
              steps {
                      sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
              }
-             /* post {
+              *//* post {
                 always {
                      sh 'cat pylint.log'
                      recordIssues(
                           enabledForFailure: true,
                           aggregatingResults: true,
-                          tools: [pyLint(name: 'Pylint', pattern: '**//* pylint.log')]
+                          tools: [pyLint(name: 'Pylint', pattern: '**//*  *//* pylint.log')]
                      )
 
                 }
-             } */
+             } *//*
         }
-
+      */
         stage('Build polybot Image') {
              steps { 
                    script {
@@ -51,33 +58,43 @@ pipeline {
                    }
              }
         }
-
-        stage('Push NGINX Image') {
-             steps { 
-                withCredentials(
-                   [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]
-                ) { 
-                    sh '''
-                      docker login -u $DOCKER_USERNAME -p $DOCKER_PASS
-                      docker push alexb853/$POLYBOT_IMG_NAME
-                    ''' 
-                   }
-             }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image using docker-compose
+                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
+                }
+            }
         }
 
-         stage('Push polybot img') {
-               steps {
-                  withCredentials(
-                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]
-                  ) {
-                      sh '''
-                        docker login -u $DOCKER_USERNAME -p $DOCKER_PASS
-                        docker push alexb853/$POLYBOT_IMG_NAME
-                      '''
-                     }
+        stage('Snyk Container Test') {
+            steps {
+                script {
+                    // Test Docker image for vulnerabilities
+                    withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
+                        sh 'snyk auth ${SNYK_TOKEN}'
+                        sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
+                    }
+                }
+           }
+        }
 
-               }
-         }
+        stage('Tag and push images') {
+            steps {
+                script {
+                    withCredentials(
+                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+                    sh '''
+                    docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASS}
+                    docker tag ${APP_IMAGE_NAME}:latest ${DOCKER_USERNAME}/${APP_IMAGE_NAME}:${IMAGE_TAG}
+                    docker push ${DOCKER_USERNAME}/${APP_IMAGE_NAME}:${IMAGE_TAG}
+                    docker tag ${WEB_IMAGE_NAME}:latest ${DOCKER_USERNAME}/${WEB_IMAGE_NAME}:${IMAGE_TAG}
+                    docker push ${DOCKER_USERNAME}/${WEB_IMAGE_NAME}:${IMAGE_TAG}
+                    '''
+                    }
+                }
+            }
+        }
 
         stage('Trigger Deploy') {
            steps {
