@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./app
+    ports:
+      - "5000:5000"
+    networks:
+      - my_network
+
+  web:
+    build:
+      context: ./web
+    ports:
+      - "8081:80"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+
