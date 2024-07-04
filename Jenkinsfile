@@ -1,3 +1,6 @@
+@Library('jenkins-shared-library') _
+
+buildAndDeploy()
 
 pipeline {
    agent any
