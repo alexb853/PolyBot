@@ -80,21 +80,15 @@ pipeline {
                 }
             }
         }
-        stage('Snyk Security Scan') {
+        stage('Snyk Container Test') {
             steps {
-                withCredentials([string(credentialsId: 'snyk-api-token', variable: 'SNYK_TOKEN')]) {
-                    script {
-                        def dockerfilePath = "/home/alex_ben_shalom/PolyBot/app/Dockerfile"
-                        def imageName = "python-app-image:latest"
-
-                        sh "ls -l ${dockerfilePath}"  // Check if Dockerfile exists and is accessible
-                        sh "docker build -t ${imageName} -f ${dockerfilePath} ."  // Build the Docker image locally for testing
-                        sh "snyk container test ${imageName} --file=${dockerfilePath}"  // Run Snyk scan with Dockerfile
-
-                        // Optionally, print debug information
-                        sh "docker images"  // List Docker images for verification
+                 script {
+                    withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
+                    sh 'snyk auth ${SNYK_TOKEN}'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile'
                     }
-                }
+                 }
             }
         }
         stage('Tag and push images') {
