@@ -84,7 +84,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'snyk-api-token', variable: 'SNYK_TOKEN')]) {
                     script {
-                        def dockerfilePath = "/home/alex_ben_shalom/PolyBot/app"
+                        def dockerfilePath = "/home/alex_ben_shalom/PolyBot/app/Dockerfile"
                         def imageName = "python-app-image:latest"
 
                         sh "ls -l ${dockerfilePath}"  // Check if Dockerfile exists and is accessible
