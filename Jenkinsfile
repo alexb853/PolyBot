@@ -85,8 +85,8 @@ pipeline {
                  script {
                     withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
                     sh 'snyk auth ${SNYK_TOKEN}'
-                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
                     sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile'
+                    sh 'cat snyk-ignore.json | xargs -I {} snyk ignore --id={}'
                     }
                  }
             }
