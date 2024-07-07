@@ -94,15 +94,10 @@ pipeline {
         stage('Snyk Container Test') {
             steps {
                  script {
-                    // Set Snyk configuration to disable suggestions
-                    sh 'snyk config set disableSuggestions=true || true'
-
-                    // Authenticate with Snyk using token
                     withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
-                    // Run Snyk commands, ignore errors with '|| true'
-                    sh 'snyk auth ${SNYK_TOKEN} || true'
-                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk || true'
-                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=app || true'
+                    sh 'snyk auth ${SNYK_TOKEN}'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=python:3.11.4-slim-bookworm'
                     }
                  }
             }
