@@ -68,24 +68,23 @@ pipeline {
                 }
             }
         }
-        stage('Debugging') {
-            steps {
-                script {
-                    // Print current directory and list files for debugging
-                    sh 'pwd'
-                    sh 'ls -la'
-                    sh 'cat Dockerfile'
-                }
-            }
-        }
+//         stage('Debugging') {
+//             steps {
+//                 script {
+//                     // Print current directory and list files for debugging
+//                     sh 'pwd'
+//                     sh 'ls -la'
+//                     sh 'cat Dockerfile'
+//                 }
+//             }
+//         }
         stage('Snyk Container Test') {
              steps {
                  script {
-                     // Test Docker image for vulnerabilities
-                    withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
-                        sh 'snyk auth ${SNYK_TOKEN}'
-                        // Simplify the Snyk command to isolate the issue
-                        sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=/home/alex_ben_shalom/PolyBot'
+                     withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
+                         sh 'snyk auth ${SNYK_TOKEN}'
+                         sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
+                         sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile'
                     }
                  }
              }
