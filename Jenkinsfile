@@ -80,6 +80,17 @@ pipeline {
                 }
             }
         }
+        stage('Snyk Container Test') {
+            steps {
+                 script {
+                    withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
+                    sh 'snyk auth ${SNYK_TOKEN}'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile'
+                    }
+                 }
+            }
+        }
         stage('Tag and push images') {
             steps {
                 script {
