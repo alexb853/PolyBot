@@ -102,7 +102,7 @@ pipeline {
                     // Run Snyk commands, ignore errors with '|| true'
                     sh 'snyk auth ${SNYK_TOKEN} || true'
                     sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk || true'
-                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=/home/alex_ben_shalom/PolyBot/app || true'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile || true'
                     }
                  }
             }
