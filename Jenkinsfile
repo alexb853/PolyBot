@@ -94,6 +94,8 @@ pipeline {
         stage('Snyk Container Test') {
              steps {
                  script {
+                     // Set Snyk configuration to disable suggestions
+                     sh 'snyk config set disableSuggestions=true'
                      withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
                          sh 'snyk auth ${SNYK_TOKEN}'
                          sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
