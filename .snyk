@@ -404,3 +404,23 @@ ignore:
         reason: "Ignored because all existing medium vulnerabilities are allowed."
         expires: "2024-12-31T12:00:00Z"
 
+  SNYK-PYTHON-JINJA2-6150717:
+    - "*":
+        reason: "Ignored because all existing medium vulnerabilities are allowed."
+        expires: "2024-12-31T12:00:00Z"
+
+  SNYK-PYTHON-JINJA2-6809379:
+    - "*":
+        reason: "Ignored because all existing medium vulnerabilities are allowed."
+        expires: "2024-12-31T12:00:00Z"
+
+  SNYK-PYTHON-WERKZEUG-6035177:
+    - "*":
+        reason: "Ignored because all existing medium vulnerabilities are allowed."
+        expires: "2024-12-31T12:00:00Z"
+
+  SNYK-PYTHON-WERKZEUG-6808933:
+    - "*":
+        reason: "Ignored because all existing medium vulnerabilities are allowed."
+        expires: "2024-12-31T12:00:00Z"
+
