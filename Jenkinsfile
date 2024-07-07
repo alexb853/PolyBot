@@ -32,7 +32,6 @@ pipeline {
                    }
             }
         }
-
         stage('Static Code Linting') {
             steps {
                    sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
@@ -81,29 +80,17 @@ pipeline {
                 }
             }
         }
-        stage('Debugging') {
-            steps {
-                 script {
-                    // Print current directory and list files for debugging
-                    sh 'pwd'
-                    sh 'ls -la'
-                    sh 'cat Dockerfile'
-                 }
-            }
-        }
         stage('Snyk Container Test') {
             steps {
                  script {
                     withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
                     sh 'snyk auth ${SNYK_TOKEN}'
                     sh 'snyk container test ${APP_IMAGE_NAME}:latest --policy-path=.snyk'
-                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=python:3.11.4-slim-bookworm'
+                    sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile'
                     }
                  }
             }
         }
-
-
         stage('Tag and push images') {
             steps {
                 script {
@@ -134,7 +121,6 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy to Staging') {
             when {
                 branch 'staging'
@@ -149,7 +135,6 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy to Production') {
             when {
                 branch 'master'
@@ -164,7 +149,6 @@ pipeline {
                 }
             }
         }
-
         stage('Trigger Deploy') {
            steps {
                build job: 'BotDeploy', wait: false, parameters: [
@@ -172,7 +156,6 @@ pipeline {
                ]
            }
         }
-
         stage('Sleep') {
           steps { 
              sleep 20
