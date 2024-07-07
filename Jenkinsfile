@@ -106,6 +106,50 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Development') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                script {
+                    withCredentials(
+                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+                        sh 'docker-compose -f docker-compose-dev.yaml pull'
+                        sh 'docker-compose -f docker-compose-dev.yaml up -d'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            when {
+                branch 'staging'
+            }
+            steps {
+                script {
+                    withCredentials(
+                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+                        sh 'docker-compose -f docker-compose-staging.yaml pull'
+                        sh 'docker-compose -f docker-compose-staging.yaml up -d'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Production') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    withCredentials(
+                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+                        sh 'docker-compose -f docker-compose.yaml pull'
+                        sh 'docker-compose -f docker-compose.yaml up -d'
+                    }
+                }
+            }
+        }
 
         stage('Trigger Deploy') {
            steps {
