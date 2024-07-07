@@ -209,10 +209,10 @@ ignore:
     - "*":
         reason: "Ignored because all existing medium vulnerabilities are allowed."
         expires: "2024-12-31T12:00:00Z"
-  SNYK-DEBIAN12-UTILLINUX-6508631
-    - "*":
-        reason: "Ignored because all existing medium vulnerabilities are allowed."
-        expires: "2024-12-31T12:00:00Z"
+  SNYK-DEBIAN12-UTILLINUX-6508631:
+  - "*":
+      reason: "Ignored because all existing medium vulnerabilities are allowed."
+      expires: "2024-12-31T12:00:00Z"
   SNYK-DEBIAN12-TAR-6120422
     - "*":
         reason: "Ignored because all existing medium vulnerabilities are allowed."
