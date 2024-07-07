@@ -49,6 +49,19 @@ pipeline {
                 }
              }
         }
+        stage('Unit Tests') {
+            steps {
+                // Ensure Python requirements are installed
+                sh 'pip3 install pytest'
+                // Run pytest for unit tests
+                sh 'python3 -m pytest --junitxml=results.xml tests/*.py'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'results.xml'
+                }
+            }
+        }
         stage('Build polybot Image') {
              steps { 
                    script {
@@ -68,16 +81,16 @@ pipeline {
                 }
             }
         }
-//         stage('Debugging') {
-//             steps {
-//                 script {
-//                     // Print current directory and list files for debugging
-//                     sh 'pwd'
-//                     sh 'ls -la'
-//                     sh 'cat Dockerfile'
-//                 }
-//             }
-//         }
+        stage('Debugging') {
+            steps {
+                 script {
+                    // Print current directory and list files for debugging
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'cat Dockerfile'
+                 }
+            }
+        }
         stage('Snyk Container Test') {
              steps {
                  script {
