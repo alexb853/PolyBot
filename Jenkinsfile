@@ -1,7 +1,5 @@
 @Library('Jenkins-library') _
 
-buildAndDeploy()
-
 pipeline {
    agent any
 
