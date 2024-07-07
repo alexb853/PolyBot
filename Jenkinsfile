@@ -85,7 +85,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'snykAPI', variable: 'SNYK_TOKEN')]) {
                         sh 'snyk auth ${SNYK_TOKEN}'
                         // Simplify the Snyk command to isolate the issue
-                        sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=Dockerfile'
+                        sh 'snyk container test ${APP_IMAGE_NAME}:latest --file=/home/alex_ben_shalom/PolyBot'
                     }
                  }
              }
