@@ -68,7 +68,15 @@ pipeline {
                 }
             }
         }
-
+        stage('Debugging') {
+            steps {
+                script {
+                    // Print current directory and list files for debugging
+                    sh 'pwd'
+                    sh 'ls -la'
+                }
+            }
+        }
         stage('Snyk Container Test') {
             steps {
                 script {
