@@ -25,6 +25,14 @@ pipeline {
 
     stages {
 
+        stage('Initialize and build') {
+            steps {
+                script {
+                    buildAndDeploy()
+                }
+            }
+        }
+
         stage('pull nginx img') {
             steps {
                    script { 
