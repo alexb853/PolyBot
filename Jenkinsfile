@@ -74,6 +74,7 @@ pipeline {
                     // Print current directory and list files for debugging
                     sh 'pwd'
                     sh 'ls -la'
+                    sh 'cat Dockerfile'
                 }
             }
         }
