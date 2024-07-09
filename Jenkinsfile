@@ -75,10 +75,10 @@ pipeline {
              steps { 
                    script {
  
-                      sh '''
-                         docker build -t $POLYBOT_IMG_NAME .
-                         docker tag $POLYBOT_IMG_NAME alexb853/$POLYBOT_IMG_NAME
-                        '''
+                   sh '''
+                      docker build -t $POLYBOT_IMG_NAME .
+                      docker tag $POLYBOT_IMG_NAME alexb853/$POLYBOT_IMG_NAME
+                      '''
                    }
              }
         }
