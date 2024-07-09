@@ -110,7 +110,6 @@ pipeline {
                 }
             }
         }
-
         stage('Tag and Push To Nexus') {
             steps {
                 script {
