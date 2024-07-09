@@ -73,15 +73,7 @@ pipeline {
 
     post {
         always {
-             node {
                 cleanWs()
-             }
-        }
-        failure {
-            echo 'Build failed!'
-        }
-        success {
-            echo 'Build succeeded!'
         }
     }
 }
