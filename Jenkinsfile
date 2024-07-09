@@ -25,15 +25,15 @@ pipeline {
         NEXUS_CREDENTIALS_ID = "nexus"
     }
 
-    stages {
-
-        stage('Build and Deploy') {
-            steps {
-                script {
-                    buildAndDeploy()
-                }
-            }
-        }
+//     stages {
+//
+//         stage('Build and Deploy') {
+//             steps {
+//                 script {
+//                     buildAndDeploy()
+//                 }
+//             }
+//         }
 
         stage('pull nginx img') {
             steps {
