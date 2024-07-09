@@ -25,7 +25,7 @@ pipeline {
         NEXUS_CREDENTIALS_ID = "nexus"
     }
 
-//     stages {
+    stages {
 //
 //         stage('Build and Deploy') {
 //             steps {
