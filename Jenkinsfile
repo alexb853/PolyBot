@@ -1,4 +1,4 @@
-@Library('Jenkins-library') _
+//@Library('Jenkins-library') _
 
 pipeline {
    agent any
@@ -138,55 +138,55 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Development') {
-            when {
-                branch 'develop'
-            }
-            steps {
-                script {
-                    withCredentials(
-                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
-                        sh 'docker-compose -f docker-compose-dev.yaml pull'
-                        sh 'docker-compose -f docker-compose-dev.yaml up -d'
-                    }
-                }
-            }
-        }
-        stage('Deploy to Staging') {
-            when {
-                branch 'staging'
-            }
-            steps {
-                script {
-                    withCredentials(
-                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
-                        sh 'docker-compose -f docker-compose-staging.yaml pull'
-                        sh 'docker-compose -f docker-compose-staging.yaml up -d'
-                    }
-                }
-            }
-        }
-        stage('Deploy to Production') {
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    withCredentials(
-                    [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
-                        sh 'docker-compose -f docker-compose.yaml pull'
-                        sh 'docker-compose -f docker-compose.yaml up -d'
-                    }
-                }
-            }
-        }
-        stage('Trigger Deploy') {
-           steps {
-               build job: 'BotDeploy', wait: false, parameters: [
-               string(name: 'IMAGE_URL', value: "alexb853/$POLYBOT_IMG_NAME")
-               ]
-           }
-        }
+//         stage('Deploy to Development') {
+//             when {
+//                 branch 'develop'
+//             }
+//             steps {
+//                 script {
+//                     withCredentials(
+//                     [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+//                         sh 'docker-compose -f docker-compose-dev.yaml pull'
+//                         sh 'docker-compose -f docker-compose-dev.yaml up -d'
+//                     }
+//                 }
+//             }
+//         }
+//         stage('Deploy to Staging') {
+//             when {
+//                 branch 'staging'
+//             }
+//             steps {
+//                 script {
+//                     withCredentials(
+//                     [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+//                         sh 'docker-compose -f docker-compose-staging.yaml pull'
+//                         sh 'docker-compose -f docker-compose-staging.yaml up -d'
+//                     }
+//                 }
+//             }
+//         }
+//         stage('Deploy to Production') {
+//             when {
+//                 branch 'master'
+//             }
+//             steps {
+//                 script {
+//                     withCredentials(
+//                     [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+//                         sh 'docker-compose -f docker-compose.yaml pull'
+//                         sh 'docker-compose -f docker-compose.yaml up -d'
+//                     }
+//                 }
+//             }
+//         }
+//         stage('Trigger Deploy') {
+//            steps {
+//                build job: 'BotDeploy', wait: false, parameters: [
+//                string(name: 'IMAGE_URL', value: "alexb853/$POLYBOT_IMG_NAME")
+//                ]
+//            }
+//         }
         stage('Sleep') {
           steps { 
              sleep 20
