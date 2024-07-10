@@ -110,7 +110,7 @@ pipeline {
             steps {
                build job: 'Deploy', wait: false, parameters: [
                 string(name: 'IMAGE_URL', value: "alexb853/$POLYBOT_IMG_NAME")
-                sh "echo 'Deploy'"
+                sh 'echo 'Deploy''
                 ]
             }
         }
