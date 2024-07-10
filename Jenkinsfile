@@ -34,14 +34,6 @@ pipeline {
 //                 }
 //             }
 //         }
-
-        stage('pull nginx img') {
-            steps {
-                   script {
-                          docker.image("${NGINX_IMG}").pull()
-                   }
-            }
-        }
 //         stage('Static Code Linting') {
 //             steps {
 //                    sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
@@ -100,6 +92,7 @@ pipeline {
                  }
             }
         }
+
         stage('Login to Nexus Repository') {
             steps {
                 script {
