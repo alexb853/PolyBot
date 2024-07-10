@@ -171,20 +171,13 @@ pipeline {
 //                 }
 //             }
 //         }
-//         stage('Trigger Deploy') {
-//            steps {
-//                build job: 'BotDeploy', wait: false, parameters: [
-//                string(name: 'IMAGE_URL', value: "alexb853/$POLYBOT_IMG_NAME")
-//                ]
-//            }
-//         }
-        stage('Sleep') {
-          steps {
-             sleep 20
-          }
-        }
-    }
-
+         stage('Trigger Deploy') {
+            steps {
+               build job: 'BotDeploy', wait: false, parameters: [
+                string(name: 'IMAGE_URL', value: "alexb853/$POLYBOT_IMG_NAME")
+                ]
+            }
+         }
 
     post {
           always {
