@@ -24,7 +24,9 @@ Before you begin, ensure you have the following installed:
 
 ## Setup Instructions
 1. Clone the Repository
+  
 2. Ensure your docker-compose.yml is configured correctly
+  
 3. Set Up Jenkins
 
 * Install Jenkins on your machine or server.
