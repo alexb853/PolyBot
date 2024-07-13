@@ -25,7 +25,31 @@ pipeline {
         NEXUS_CREDENTIALS_ID = "nexus"
     }
 
-    stages {
+     stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image using docker-compose
+                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
+                }
+            }
+        }
+//      stage('Static Code Linting') {
+//             steps {
+//                    sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
+//             }
+//              post {
+//                 always {
+//                      sh 'cat pylint.log'
+//                      recordIssues(
+//                           enabledForFailure: true,
+//                           aggregatingResults: true,
+//                           tools: [pyLint(name: 'Pylint', pattern: '**//*  *//* pylint.log')]
+//                      )
+//
+//                 }
+//              }
+//         }
         stage('Unit Tests') {
             steps {
                 // Ensure Python requirements are installed
@@ -36,25 +60,6 @@ pipeline {
             post {
                 always {
                     junit allowEmptyResults: true, testResults: 'results.xml'
-                }
-            }
-        }
-//         stage('Build polybot Image') {
-//              steps {
-//                    script {
-//
-//                    sh '''
-//                       docker build -t $POLYBOT_IMG_NAME .
-//                       docker tag $POLYBOT_IMG_NAME alexb853/$POLYBOT_IMG_NAME
-//                       '''
-//                    }
-//              }
-//         }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build Docker image using docker-compose
-                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
                 }
             }
         }
@@ -89,27 +94,26 @@ pipeline {
                 }
             }
         }
-//         stage('Tag and push images') {
-//             steps {
-//                 script {
-//                     withCredentials(
-//                     [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
-//                     sh '''
-//                     docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASS}
-//                     docker tag ${APP_IMAGE_NAME}:latest ${DOCKER_USERNAME}/${APP_IMAGE_NAME}:${IMAGE_TAG}
-//                     docker push ${DOCKER_USERNAME}/${APP_IMAGE_NAME}:${IMAGE_TAG}
-//                     docker tag ${WEB_IMAGE_NAME}:latest ${DOCKER_USERNAME}/${WEB_IMAGE_NAME}:${IMAGE_TAG}
-//                     docker push ${DOCKER_USERNAME}/${WEB_IMAGE_NAME}:${IMAGE_TAG}
-//                     '''
-//                     }
-//                 }
-//             }
-//         }
+         stage('Tag and push images') {
+             steps {
+                 script {
+                     withCredentials(
+                     [usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASS')]){
+                     sh '''
+                     docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASS}
+                     docker tag ${APP_IMAGE_NAME}:latest ${DOCKER_USERNAME}/${APP_IMAGE_NAME}:${IMAGE_TAG}
+                     docker push ${DOCKER_USERNAME}/${APP_IMAGE_NAME}:${IMAGE_TAG}
+                     docker tag ${WEB_IMAGE_NAME}:latest ${DOCKER_USERNAME}/${WEB_IMAGE_NAME}:${IMAGE_TAG}
+                     docker push ${DOCKER_USERNAME}/${WEB_IMAGE_NAME}:${IMAGE_TAG}
+                     '''
+                     }
+                 }
+             }
+         }
 
         stage('Trigger Deploy') {
             steps {
                build job: 'Deploy', wait: false, parameters: [
-                string(name: 'IMAGE_URL', value: "alexb853/$POLYBOT_IMG_NAME")
                 sh 'echo Deploy'
                 ]
             }
