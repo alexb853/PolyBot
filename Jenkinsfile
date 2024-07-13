@@ -42,11 +42,11 @@ pipeline {
               post {
                  always {
                       sh 'cat pylint.log'
-//                       recordIssues(
-//                            enabledForFailure: true,
-//                            aggregatingResults: true,
+                       recordIssues(
+                            enabledForFailure: true,
+                            aggregatingResults: true
 //                            tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
-//                       )
+                       )
 
                  }
               }
