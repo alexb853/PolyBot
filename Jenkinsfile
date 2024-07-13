@@ -113,9 +113,7 @@ pipeline {
 
         stage('Trigger Deploy') {
             steps {
-               build job: 'Deploy', wait: false, parameters: [
-                sh '"echo Deploy"'
-                ]
+                echo "Deploy to k8s"
             }
         }
     }
