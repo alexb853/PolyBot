@@ -36,7 +36,8 @@ pipeline {
         }
         stage('Static Code Linting') {
              steps {
-                    sh 'python3 -m pylint -f parseable --reports=no *.py > pylint.log'
+                    sh 'pip install pylint'
+                    sh 'python3 -m pylint -f parseable --reports=no **/*.py > pylint.log'
              }
               post {
                  always {
@@ -44,7 +45,7 @@ pipeline {
                       recordIssues(
                            enabledForFailure: true,
                            aggregatingResults: true,
-                           tools: [pyLint(name: 'Pylint', pattern: 'app/**/*.py')]
+                           tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
                       )
 
                  }
