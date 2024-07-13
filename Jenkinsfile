@@ -114,7 +114,7 @@ pipeline {
         stage('Trigger Deploy') {
             steps {
                build job: 'Deploy', wait: false, parameters: [
-                sh 'echo Deploy'
+                sh '"echo Deploy"'
                 ]
             }
         }
