@@ -49,7 +49,7 @@ pipeline {
                        sh 'cat pylint.log'
                         recordIssues(
                              enabledForFailure: true,
-                             aggregatingResults: true
+                             aggregatingResults: true,
                              tools: [pyLint(name: 'Pylint', pattern: '**/pylint.log')]
                         )
                   }
